@@ -10,6 +10,7 @@ import os
 from tflite_model_maker import model_spec
 from tflite_model_maker import text_classifier
 from tflite_model_maker.config import ExportFormat
+from tflite_model_maker.config import QuantizationConfig
 from tflite_model_maker.text_classifier import AverageWordVecSpec
 from tflite_model_maker.text_classifier import DataLoader
 
@@ -52,5 +53,6 @@ model.export(export_dir='average_word_vec/')
 
 # Model Maker supports multiple post-training quantization options using QuantizationConfig as well.
 # # Let's take float16 quantization as an instance
+
 config = QuantizationConfig.for_float16()
 model.export(export_dir='.', tflite_filename='model_fp16.tflite', quantization_config=config)
