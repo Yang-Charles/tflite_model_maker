@@ -6,7 +6,7 @@ import pandas as pd
 #       origin='https://dl.fbaipublicfiles.com/glue/data/SST-2.zip',
 #       extract=True)
 
-data_dir = os.path.join(os.path.dirname(__file__), 'data/SST-2')
+
 
 
 '''
@@ -30,22 +30,10 @@ def replace_label(original_file, new_file):
 
 # Replace the label name for both the training and test dataset. Then write the
 # updated CSV dataset to the current folder.
-replace_label(os.path.join(data_dir, 'train.tsv'), data_dir + '/train.csv')
-replace_label(os.path.join(data_dir, 'dev.tsv'), data_dir + '/dev.csv')
+if __name__ == '__main__':
+    data_dir = os.path.join(os.path.dirname(__file__), 'data/SST-2')
+    replace_label(os.path.join(data_dir, 'train.tsv'), data_dir + '/train.csv')
+    print("preprocess train complete")
+    replace_label(os.path.join(data_dir, 'dev.tsv'), data_dir + '/dev.csv')
+    print("preprocess dev complete")
 
-
-# Choose a text classification model architecture.
-spec = model_spec.get('average_word_vec')
-# Step 2. Load the training and test data, then preprocess them according to a specific model_spec.
-train_data = DataLoader.from_csv(
-      filename='train.csv',
-      text_column='sentence',
-      label_column='label',
-      model_spec=spec,
-      is_training=True)
-test_data = DataLoader.from_csv(
-      filename='dev.csv',
-      text_column='sentence',
-      label_column='label',
-      model_spec=spec,
-      is_training=False)
